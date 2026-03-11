@@ -22,6 +22,7 @@ It was built not just to give you the result, but to help you **understand how a
 - English and Turkish language support (EN / TR)
 - Works as a PWA — installable on mobile home screen with its own icon
 - No dependencies, no build step — pure HTML, CSS, and JavaScript
+- Built with Claude AI
 
 -----
 
