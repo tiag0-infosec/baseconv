@@ -1,14 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="en" data-theme="dark" data-lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="BaseConv">
-<meta name="theme-color" content="#0e0f11">
-<meta name="description" content="Step-by-step number base converter. Decimal, Binary, Hex, Octal — with full explanations.">
 <title>BaseConv — Number Base Converter</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -36,101 +30,114 @@
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--ff-sans);font-size:15px;line-height:1.5;min-height:100vh;transition:background var(--tr),color var(--tr);}
 
-.topbar{position:sticky;top:0;z-index:100;background:var(–bg);border-bottom:1px solid var(–border);padding:0 32px;height:52px;display:flex;align-items:center;justify-content:space-between;transition:background var(–tr),border-color var(–tr);}
-.topbar-logo{font-family:var(–ff-mono);font-size:13px;font-weight:500;letter-spacing:.05em;color:var(–text);}
-.topbar-logo span{color:var(–accent);}
+/* TOP BAR */
+.topbar{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:0 32px;height:52px;display:flex;align-items:center;justify-content:space-between;transition:background var(--tr),border-color var(--tr);}
+.topbar-logo{font-family:var(--ff-mono);font-size:13px;font-weight:500;letter-spacing:.05em;color:var(--text);}
+.topbar-logo span{color:var(--accent);}
 .topbar-controls{display:flex;align-items:center;gap:6px;}
-.pill-switch{display:flex;background:var(–surface2);border:1px solid var(–border);border-radius:99px;padding:3px;gap:2px;}
-.pill-btn{border:none;background:transparent;color:var(–text2);font-family:var(–ff-mono);font-size:11px;font-weight:500;letter-spacing:.06em;padding:4px 11px;border-radius:99px;cursor:pointer;transition:all var(–tr);}
-.pill-btn.active{background:var(–surface);color:var(–text);box-shadow:var(–shadow);}
-.icon-btn{border:1px solid var(–border);background:var(–surface);color:var(–text2);width:34px;height:34px;border-radius:var(–radius);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(–tr);font-size:14px;}
-.icon-btn:hover{color:var(–text);border-color:var(–border2);}
+.pill-switch{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:3px;gap:2px;}
+.pill-btn{border:none;background:transparent;color:var(--text2);font-family:var(--ff-mono);font-size:11px;font-weight:500;letter-spacing:.06em;padding:4px 11px;border-radius:99px;cursor:pointer;transition:all var(--tr);}
+.pill-btn.active{background:var(--surface);color:var(--text);box-shadow:var(--shadow);}
+.icon-btn{border:1px solid var(--border);background:var(--surface);color:var(--text2);width:34px;height:34px;border-radius:var(--radius);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--tr);font-size:14px;}
+.icon-btn:hover{color:var(--text);border-color:var(--border2);}
 
+/* LAYOUT */
 .page{max-width:780px;margin:0 auto;padding:48px 24px 80px;}
-.page-header{margin-bottom:40px;}
-.page-label{font-family:var(–ff-mono);font-size:11px;letter-spacing:.12em;color:var(–text3);text-transform:uppercase;margin-bottom:10px;}
-.page-title{font-size:28px;font-weight:300;letter-spacing:-.02em;color:var(–text);line-height:1.2;margin-bottom:8px;}
-.page-title strong{font-weight:600;}
-.page-desc{font-size:14px;color:var(–text2);font-weight:300;max-width:420px;}
-.section-label{font-family:var(–ff-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(–text3);margin-bottom:12px;}
 
+/* HEADER */
+.page-header{margin-bottom:40px;}
+.page-label{font-family:var(--ff-mono);font-size:11px;letter-spacing:.12em;color:var(--text3);text-transform:uppercase;margin-bottom:10px;}
+.page-title{font-size:28px;font-weight:300;letter-spacing:-.02em;color:var(--text);line-height:1.2;margin-bottom:8px;}
+.page-title strong{font-weight:600;}
+.page-desc{font-size:14px;color:var(--text2);font-weight:300;max-width:420px;}
+
+/* SECTION LABEL */
+.section-label{font-family:var(--ff-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;}
+
+/* CONVERSION GRID */
 .conv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:32px;}
 @media(max-width:600px){.conv-grid{grid-template-columns:repeat(2,1fr);}}
-.conv-tile{border:1px solid var(–border);background:var(–surface);border-radius:var(–radius);padding:12px 14px;cursor:pointer;transition:all var(–tr);text-align:left;}
-.conv-tile:hover{border-color:var(–border2);background:var(–surface2);}
-.conv-tile.active{border-color:var(–accent);background:var(–accent-bg);}
-.conv-arrow{font-family:var(–ff-mono);font-size:12px;font-weight:500;color:var(–text);margin-bottom:3px;letter-spacing:.03em;}
-.conv-tile.active .conv-arrow{color:var(–accent);}
-.conv-lbl{font-size:11px;color:var(–text3);font-weight:300;}
-.conv-tile.active .conv-lbl{color:var(–text2);}
+.conv-tile{border:1px solid var(--border);background:var(--surface);border-radius:var(--radius);padding:12px 14px;cursor:pointer;transition:all var(--tr);text-align:left;}
+.conv-tile:hover{border-color:var(--border2);background:var(--surface2);}
+.conv-tile.active{border-color:var(--accent);background:var(--accent-bg);}
+.conv-arrow{font-family:var(--ff-mono);font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;letter-spacing:.03em;}
+.conv-tile.active .conv-arrow{color:var(--accent);}
+.conv-lbl{font-size:11px;color:var(--text3);font-weight:300;}
+.conv-tile.active .conv-lbl{color:var(--text2);}
 
+/* INPUT */
 .input-block{margin-bottom:24px;}
 .input-row{display:flex;gap:8px;align-items:flex-end;}
 .field{flex:1;display:flex;flex-direction:column;gap:6px;}
-.field-label{font-family:var(–ff-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(–text3);}
-.field-input{background:var(–surface);border:1px solid var(–border);border-radius:var(–radius);padding:11px 16px;font-family:var(–ff-mono);font-size:16px;font-weight:400;color:var(–text);outline:none;width:100%;transition:border-color var(–tr),background var(–tr);letter-spacing:.05em;}
-.field-input:focus{border-color:var(–accent);}
+.field-label{font-family:var(--ff-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);}
+.field-input{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px 16px;font-family:var(--ff-mono);font-size:16px;font-weight:400;color:var(--text);outline:none;width:100%;transition:border-color var(--tr),background var(--tr);letter-spacing:.05em;}
+.field-input:focus{border-color:var(--accent);}
 .field-input.err-inp{border-color:#b05050;}
-.field-hint{font-family:var(–ff-mono);font-size:10px;color:var(–text3);letter-spacing:.06em;}
+.field-hint{font-family:var(--ff-mono);font-size:10px;color:var(--text3);letter-spacing:.06em;}
 .field-hint.err-hint{color:#b05050;}
-.cta-btn{height:44px;padding:0 24px;background:var(–accent);border:none;border-radius:var(–radius);font-family:var(–ff-sans);font-size:13px;font-weight:600;color:var(–bg);cursor:pointer;letter-spacing:.02em;white-space:nowrap;transition:opacity var(–tr),transform var(–tr);}
+.cta-btn{height:44px;padding:0 24px;background:var(--accent);border:none;border-radius:var(--radius);font-family:var(--ff-sans);font-size:13px;font-weight:600;color:var(--bg);cursor:pointer;letter-spacing:.02em;white-space:nowrap;transition:opacity var(--tr),transform var(--tr);}
 .cta-btn:hover{opacity:.85;}
 .cta-btn:active{transform:scale(.98);}
 
+/* EXAMPLES */
 .examples-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
-.ex-chip{font-family:var(–ff-mono);font-size:11px;padding:4px 10px;border:1px solid var(–border);border-radius:3px;color:var(–text2);cursor:pointer;transition:all var(–tr);background:transparent;}
-.ex-chip:hover{border-color:var(–accent);color:var(–accent);}
+.ex-chip{font-family:var(--ff-mono);font-size:11px;padding:4px 10px;border:1px solid var(--border);border-radius:3px;color:var(--text2);cursor:pointer;transition:all var(--tr);background:transparent;}
+.ex-chip:hover{border-color:var(--accent);color:var(--accent);}
 
+/* RESULT */
 .result-wrap{display:none;animation:fadeUp .3s ease both;}
 .result-wrap.show{display:block;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.result-box{border:1px solid var(–border);border-radius:var(–radius);overflow:hidden;background:var(–surface);}
-.result-top{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(–border);gap:16px;flex-wrap:wrap;}
-.result-badge{font-family:var(–ff-mono);font-size:10px;letter-spacing:.12em;color:var(–text3);text-transform:uppercase;margin-bottom:6px;}
-.result-number{font-family:var(–ff-mono);font-size:26px;font-weight:500;color:var(–accent);letter-spacing:.06em;word-break:break-all;line-height:1.2;}
-.copy-btn{border:1px solid var(–border);background:transparent;color:var(–text3);font-family:var(–ff-mono);font-size:10px;letter-spacing:.08em;padding:6px 12px;border-radius:3px;cursor:pointer;transition:all var(–tr);white-space:nowrap;}
-.copy-btn:hover{color:var(–text);border-color:var(–border2);}
+.result-box{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface);}
+.result-top{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);gap:16px;flex-wrap:wrap;}
+.result-badge{font-family:var(--ff-mono);font-size:10px;letter-spacing:.12em;color:var(--text3);text-transform:uppercase;margin-bottom:6px;}
+.result-number{font-family:var(--ff-mono);font-size:26px;font-weight:500;color:var(--accent);letter-spacing:.06em;word-break:break-all;line-height:1.2;}
+.copy-btn{border:1px solid var(--border);background:transparent;color:var(--text3);font-family:var(--ff-mono);font-size:10px;letter-spacing:.08em;padding:6px 12px;border-radius:3px;cursor:pointer;transition:all var(--tr);white-space:nowrap;}
+.copy-btn:hover{color:var(--text);border-color:var(--border2);}
 
+/* STEPS */
 .steps-body{padding:24px;}
-.steps-hdr{font-family:var(–ff-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(–text3);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
-.steps-hdr::after{content:’’;flex:1;height:1px;background:var(–border);}
+.steps-hdr{font-family:var(--ff-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.steps-hdr::after{content:'';flex:1;height:1px;background:var(--border);}
 .step-item{display:flex;gap:18px;margin-bottom:24px;animation:stepReveal .25s ease both;}
 @keyframes stepReveal{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:translateX(0);}}
-.step-idx{font-family:var(–ff-mono);font-size:10px;color:var(–text3);padding-top:2px;min-width:22px;letter-spacing:.06em;}
-.step-title{font-size:13px;font-weight:600;color:var(–text);margin-bottom:8px;letter-spacing:-.01em;}
-.step-sub{font-size:12px;color:var(–text2);font-weight:300;line-height:1.7;font-family:var(–ff-mono);}
-.step-sub .hl{color:var(–text);font-weight:500;}
-.step-sub .ac{color:var(–accent);}
-.step-sub .dm{color:var(–text3);}
-.step-divider{height:1px;background:var(–border);margin:0 0 24px;}
+.step-idx{font-family:var(--ff-mono);font-size:10px;color:var(--text3);padding-top:2px;min-width:22px;letter-spacing:.06em;}
+.step-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;letter-spacing:-.01em;}
+.step-sub{font-size:12px;color:var(--text2);font-weight:300;line-height:1.7;font-family:var(--ff-mono);}
+.step-sub .hl{color:var(--text);font-weight:500;}
+.step-sub .ac{color:var(--accent);}
+.step-sub .dm{color:var(--text3);}
+.step-divider{height:1px;background:var(--border);margin:0 0 24px;}
 
-.dtable{width:100%;border-collapse:collapse;font-family:var(–ff-mono);font-size:12px;margin-top:10px;border:1px solid var(–border);border-radius:var(–radius);overflow:hidden;}
-.dtable th{background:var(–surface2);color:var(–text3);font-weight:500;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;text-align:left;border-bottom:1px solid var(–border);}
-.dtable td{padding:8px 14px;color:var(–text2);border-bottom:1px solid var(–border);}
+/* TABLE */
+.dtable{width:100%;border-collapse:collapse;font-family:var(--ff-mono);font-size:12px;margin-top:10px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.dtable th{background:var(--surface2);color:var(--text3);font-weight:500;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;text-align:left;border-bottom:1px solid var(--border);}
+.dtable td{padding:8px 14px;color:var(--text2);border-bottom:1px solid var(--border);}
 .dtable tr:last-child td{border-bottom:none;}
-.dtable tr:hover td{background:var(–surface2);color:var(–text);}
-.dtable td.tv{color:var(–text);font-weight:500;}
-.dtable td.ta{color:var(–accent);font-weight:500;}
-.dtable td.tm{color:var(–text3);}
+.dtable tr:hover td{background:var(--surface2);color:var(--text);}
+.dtable td.tv{color:var(--text);font-weight:500;}
+.dtable td.ta{color:var(--accent);font-weight:500;}
+.dtable td.tm{color:var(--text3);}
 
-.fblock{background:var(–surface2);border:1px solid var(–border);border-radius:var(–radius);padding:14px 18px;font-family:var(–ff-mono);font-size:12px;color:var(–text2);line-height:1.9;margin-top:10px;word-break:break-all;}
-.fblock .fh{color:var(–text);}
-.fblock .fa{color:var(–accent);font-weight:500;}
-.fblock .fm{color:var(–text3);}
-.fblock .fr{font-size:14px;font-weight:500;color:var(–text);}
+/* FORMULA */
+.fblock{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-family:var(--ff-mono);font-size:12px;color:var(--text2);line-height:1.9;margin-top:10px;word-break:break-all;}
+.fblock .fh{color:var(--text);}
+.fblock .fa{color:var(--accent);font-weight:500;}
+.fblock .fm{color:var(--text3);}
+.fblock .fr{font-size:14px;font-weight:500;color:var(--text);}
 
-.sumline{margin-top:12px;font-family:var(–ff-mono);font-size:13px;color:var(–text2);padding:10px 14px;border-left:2px solid var(–accent);background:var(–accent-bg);border-radius:0 var(–radius) var(–radius) 0;}
-.sumline strong{color:var(–accent);}
+/* SUMMARY */
+.sumline{margin-top:12px;font-family:var(--ff-mono);font-size:13px;color:var(--text2);padding:10px 14px;border-left:2px solid var(--accent);background:var(--accent-bg);border-radius:0 var(--radius) var(--radius) 0;}
+.sumline strong{color:var(--accent);}
 
 @media(max-width:540px){
-.page{padding:32px 16px 60px;}
-.topbar{padding:0 16px;}
-.input-row{flex-direction:column;align-items:stretch;}
-.cta-btn{height:44px;width:100%;}
-.result-top{flex-direction:column;align-items:flex-start;}
+  .page{padding:32px 16px 60px;}
+  .topbar{padding:0 16px;}
+  .input-row{flex-direction:column;align-items:stretch;}
+  .cta-btn{height:44px;width:100%;}
+  .result-top{flex-direction:column;align-items:flex-start;}
 }
 </style>
-
 </head>
 <body>
 
@@ -143,7 +150,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--ff-sans);font-size
     </div>
     <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">
       <svg id="iconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      <svg id="iconSun"  width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="iconSun"  width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
     </button>
   </div>
 </header>
@@ -204,6 +211,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--ff-sans);font-size
 </footer>
 
 <script>
+// ─── TRANSLATIONS ───────────────────────────────────────────
 const I = {
   en:{
     label:'Educational Tool',
@@ -223,14 +231,56 @@ const I = {
     s:{
       msb:'← MSB',msd:'← MSD',
       th:{div:'Dividend',q:'Quotient',rem:'Remainder',hex:'HEX digit',pos:'Position',dig:'Digit',dec:'Dec value',pow:'Power × base',con:'Contribution',grp:'Group',bits:'4 bits',hexd:'HEX'},
-      decbin:{s1t:'Understanding the method',s1s:'Successive divisions by 2',s1b:'To convert decimal to binary, divide by <span class="hl">2</span> repeatedly.\nCollect the <span class="ac">remainder</span> of each division.\nRead remainders <span class="hl">bottom to top</span> — the last is the MSB.',s2t:'Performing the divisions',s2s:(n)=>`Dividing ${n} by 2`,s3t:'Reading the bits',s3s:'Remainders collected from bottom to top',s4t:'Verification',s4s:'Converting back to confirm'},
-      dechex:{s1t:'Reference table',s1s:'Hex digits 0 to F',s2t:'Divisions by 16',s2s:(n)=>`Dividing ${n} by 16`,s3t:'Result',s3s:'Read remainders from bottom to top',s4t:'Verification',s4s:'Converting back to confirm'},
-      decoct:{s1t:'Method',s1s:'Successive divisions by 8',s1b:'Divide by <span class="hl">8</span> repeatedly.\nCollect <span class="ac">remainders</span> — they become octal digits.\nRead from <span class="hl">last to first</span>.',s2t:'Divisions',s2s:(n)=>`Dividing ${n} by 8`,s3t:'Result',s3s:'Remainders read bottom to top'},
-      hexbin:{s1t:'Key principle',s1s:'Each HEX digit = exactly 4 bits',s1b:'Since 16 = 2⁴, each hex digit maps to <span class="hl">4 bits</span> (one nibble).\nSimply substitute — no division needed.',s2t:'Substitution table',s2s:(h)=>`Converting each digit of ${h}`,s3t:'Concatenation',s3s:'Joining the 4-bit groups'},
-      hexdec:{s1t:'Method',s1s:'Positional notation in base 16',s1b:'Each position = a power of <span class="hl">16</span>.\nRightmost = 16⁰, next = 16¹, etc.\nMultiply each digit by its positional value, then sum.',s2t:'Calculation table',s2s:(h)=>`Analyzing each digit of ${h}`,s3t:'Final sum',s3s:'Summing all contributions'},
-      bindec:{s1t:'Method',s1s:'Positional notation in base 2',s1b:'Each position = a power of <span class="hl">2</span>.\nRightmost = 2⁰ = 1, next = 2¹ = 2, then 2² = 4 …\nOnly positions with <span class="hl">1</span> contribute to the sum.',s2t:'Bit analysis',s2s:(b)=>`Processing ${b} right to left`,s3t:'Total sum',s3s:'Adding contributions of all 1-bits'},
-      binhex:{s1t:'Key principle',s1s:'Group bits in sets of 4',s1b:'Since 16 = 2⁴, every <span class="hl">4 bits</span> = 1 hex digit.\nGroup from <span class="hl">right to left</span>.\nPad with leading zeros if needed.',s2t:'Grouping',s2s:(b)=>`Splitting ${b} into 4-bit groups`,s3t:'Group conversion',s3s:'Each 4-bit group → 1 HEX digit',s4t:'Result',s4s:'Concatenating the HEX digits'},
-      octdec:{s1t:'Method',s1s:'Positional notation in base 8',s1b:'Each position = a power of <span class="hl">8</span>.\nRightmost = 8⁰ = 1, next = 8¹ = 8, then 8² = 64 …\nMultiply each digit by its positional value and sum.',s2t:'Calculation table',s2s:(o)=>`Analyzing each digit of ${o}`,s3t:'Final sum',s3s:'Summing all contributions'},
+      decbin:{
+        s1t:'Understanding the method',s1s:'Successive divisions by 2',
+        s1b:'To convert decimal to binary, divide by <span class="hl">2</span> repeatedly.\nCollect the <span class="ac">remainder</span> of each division.\nRead remainders <span class="hl">bottom to top</span> — the last is the MSB.',
+        s2t:'Performing the divisions',s2s:(n)=>`Dividing ${n} by 2`,
+        s3t:'Reading the bits',s3s:'Remainders collected from bottom to top',
+        s4t:'Verification',s4s:'Converting back to confirm',
+      },
+      dechex:{
+        s1t:'Reference table',s1s:'Hex digits 0 to F',
+        s2t:'Divisions by 16',s2s:(n)=>`Dividing ${n} by 16`,
+        s3t:'Result',s3s:'Read remainders from bottom to top',
+        s4t:'Verification',s4s:'Converting back to confirm',
+      },
+      decoct:{
+        s1t:'Method',s1s:'Successive divisions by 8',
+        s1b:'Divide by <span class="hl">8</span> repeatedly.\nCollect <span class="ac">remainders</span> — they become octal digits.\nRead from <span class="hl">last to first</span>.',
+        s2t:'Divisions',s2s:(n)=>`Dividing ${n} by 8`,
+        s3t:'Result',s3s:'Remainders read bottom to top',
+      },
+      hexbin:{
+        s1t:'Key principle',s1s:'Each HEX digit = exactly 4 bits',
+        s1b:'Since 16 = 2⁴, each hex digit maps to <span class="hl">4 bits</span> (one nibble).\nSimply substitute — no division needed.',
+        s2t:'Substitution table',s2s:(h)=>`Converting each digit of ${h}`,
+        s3t:'Concatenation',s3s:'Joining the 4-bit groups',
+      },
+      hexdec:{
+        s1t:'Method',s1s:'Positional notation in base 16',
+        s1b:'Each position = a power of <span class="hl">16</span>.\nRightmost = 16⁰, next = 16¹, etc.\nMultiply each digit by its positional value, then sum.',
+        s2t:'Calculation table',s2s:(h)=>`Analyzing each digit of ${h}`,
+        s3t:'Final sum',s3s:'Summing all contributions',
+      },
+      bindec:{
+        s1t:'Method',s1s:'Positional notation in base 2',
+        s1b:'Each position = a power of <span class="hl">2</span>.\nRightmost = 2⁰ = 1, next = 2¹ = 2, then 2² = 4 …\nOnly positions with <span class="hl">1</span> contribute to the sum.',
+        s2t:'Bit analysis',s2s:(b)=>`Processing ${b} right to left`,
+        s3t:'Total sum',s3s:'Adding contributions of all 1-bits',
+      },
+      binhex:{
+        s1t:'Key principle',s1s:'Group bits in sets of 4',
+        s1b:'Since 16 = 2⁴, every <span class="hl">4 bits</span> = 1 hex digit.\nGroup from <span class="hl">right to left</span>.\nPad with leading zeros if needed.',
+        s2t:'Grouping',s2s:(b)=>`Splitting ${b} into 4-bit groups`,
+        s3t:'Group conversion',s3s:'Each 4-bit group → 1 HEX digit',
+        s4t:'Result',s4s:'Concatenating the HEX digits',
+      },
+      octdec:{
+        s1t:'Method',s1s:'Positional notation in base 8',
+        s1b:'Each position = a power of <span class="hl">8</span>.\nRightmost = 8⁰ = 1, next = 8¹ = 8, then 8² = 64 …\nMultiply each digit by its positional value and sum.',
+        s2t:'Calculation table',s2s:(o)=>`Analyzing each digit of ${o}`,
+        s3t:'Final sum',s3s:'Summing all contributions',
+      },
     }
   },
   tr:{
@@ -251,14 +301,56 @@ const I = {
     s:{
       msb:'← MSB',msd:'← MSD',
       th:{div:'Bölünen',q:'Bölüm',rem:'Kalan',hex:'Onaltılık',pos:'Konum',dig:'Basamak',dec:'Ondalık',pow:'Üs × taban',con:'Katkı',grp:'Grup',bits:'4 bit',hexd:'HEX'},
-      decbin:{s1t:'Yöntemi anlayalım',s1s:"2'ye ardışık bölmeler",s1b:'Ondalıktan ikiliye dönüştürmek için <span class="hl">2</span>\'ye tekrar tekrar böl.\nHer bölmenin <span class="ac">kalanını</span> topla.\nKalanları <span class="hl">aşağıdan yukarıya</span> oku — son kalan MSB\'dir.',s2t:'Bölme işlemleri',s2s:(n)=>`${n} sayısı 2'ye bölünüyor`,s3t:'Bitleri okuyalım',s3s:'Kalanlar aşağıdan yukarıya okunuyor',s4t:'Doğrulama',s4s:'Ondalığa geri dönerek kontrol'},
-      dechex:{s1t:'Başvuru tablosu',s1s:"0'dan F'ye onaltılık basamaklar",s2t:"16'ya bölmeler",s2s:(n)=>`${n} sayısı 16'ya bölünüyor`,s3t:'Sonuç',s3s:'Kalanlar aşağıdan yukarıya okunuyor',s4t:'Doğrulama',s4s:'Ondalığa geri dönerek kontrol'},
-      decoct:{s1t:'Yöntem',s1s:"8'e ardışık bölmeler",s1b:'<span class="hl">8</span>\'e tekrar tekrar böl.\n<span class="ac">Kalanları</span> topla — sekizlik basamakları oluşturur.\n<span class="hl">Sondan başa</span> oku.',s2t:'Bölmeler',s2s:(n)=>`${n} sayısı 8'e bölünüyor`,s3t:'Sonuç',s3s:'Kalanlar aşağıdan yukarıya okunuyor'},
-      hexbin:{s1t:'Temel ilke',s1s:'Her onaltılık basamak = tam 4 bit',s1b:'16 = 2⁴ olduğundan, her onaltılık basamak tam olarak <span class="hl">4 bit</span>\'e karşılık gelir.\nSadece her basamağı karşılık gelen bitlerle değiştir — bölme gerekmez.',s2t:'Dönüşüm tablosu',s2s:(h)=>`${h} sayısının her basamağı dönüştürülüyor`,s3t:'Birleştirme',s3s:'4 bitlik gruplar birleştiriliyor'},
-      hexdec:{s1t:'Yöntem',s1s:'Taban 16 konumsal gösterim',s1b:'Her konum <span class="hl">16</span>\'nın bir kuvvetidir.\nEn sağ = 16⁰, sonraki = 16¹, vb.\nHer basamağı konumsal değeriyle çarp ve topla.',s2t:'Hesaplama tablosu',s2s:(h)=>`${h} sayısının her basamağı analiz ediliyor`,s3t:'Son toplam',s3s:'Tüm katkılar toplanıyor'},
-      bindec:{s1t:'Yöntem',s1s:'Taban 2 konumsal gösterim',s1b:'Her konum <span class="hl">2</span>\'nin bir kuvvetidir.\nEn sağ = 2⁰ = 1, sonraki = 2¹ = 2, sonra 2² = 4 …\nYalnızca <span class="hl">1</span> olan konumlar katkıda bulunur.',s2t:'Bit analizi',s2s:(b)=>`${b} sağdan sola işleniyor`,s3t:'Toplam',s3s:"Tüm 1-bitlerinin katkıları toplanıyor"},
-      binhex:{s1t:'Temel ilke',s1s:"Bitleri 4'er 4'er gruplandır",s1b:'16 = 2⁴ olduğundan her <span class="hl">4 bit</span> = 1 onaltılık basamak.\n<span class="hl">Sağdan sola</span> dörderli grupla.\nEksik grup varsa başına sıfır ekle.',s2t:'Gruplama',s2s:(b)=>`${b} sayısı 4 bitlik gruplara bölünüyor`,s3t:'Grup dönüşümü',s3s:'Her 4 bit → 1 onaltılık basamak',s4t:'Sonuç',s4s:'Onaltılık basamaklar birleştiriliyor'},
-      octdec:{s1t:'Yöntem',s1s:'Taban 8 konumsal gösterim',s1b:'Her konum <span class="hl">8</span>\'in bir kuvvetidir.\nEn sağ = 8⁰ = 1, sonraki = 8¹ = 8, sonra 8² = 64 …\nHer basamağı konumsal değeriyle çarp ve topla.',s2t:'Hesaplama tablosu',s2s:(o)=>`${o} sayısının her basamağı analiz ediliyor`,s3t:'Son toplam',s3s:'Tüm katkılar toplanıyor'},
+      decbin:{
+        s1t:'Yöntemi anlayalım',s1s:"2'ye ardışık bölmeler",
+        s1b:'Ondalıktan ikiliye dönüştürmek için <span class="hl">2</span>\'ye tekrar tekrar böl.\nHer bölmenin <span class="ac">kalanını</span> topla.\nKalanları <span class="hl">aşağıdan yukarıya</span> oku — son kalan MSB\'dir.',
+        s2t:'Bölme işlemleri',s2s:(n)=>`${n} sayısı 2'ye bölünüyor`,
+        s3t:'Bitleri okuyalım',s3s:'Kalanlar aşağıdan yukarıya okunuyor',
+        s4t:'Doğrulama',s4s:'Ondalığa geri dönerek kontrol',
+      },
+      dechex:{
+        s1t:'Başvuru tablosu',s1s:"0'dan F'ye onaltılık basamaklar",
+        s2t:"16'ya bölmeler",s2s:(n)=>`${n} sayısı 16'ya bölünüyor`,
+        s3t:'Sonuç',s3s:'Kalanlar aşağıdan yukarıya okunuyor',
+        s4t:'Doğrulama',s4s:'Ondalığa geri dönerek kontrol',
+      },
+      decoct:{
+        s1t:'Yöntem',s1s:"8'e ardışık bölmeler",
+        s1b:'<span class="hl">8</span>\'e tekrar tekrar böl.\n<span class="ac">Kalanları</span> topla — sekizlik basamakları oluşturur.\n<span class="hl">Sondan başa</span> oku.',
+        s2t:'Bölmeler',s2s:(n)=>`${n} sayısı 8'e bölünüyor`,
+        s3t:'Sonuç',s3s:'Kalanlar aşağıdan yukarıya okunuyor',
+      },
+      hexbin:{
+        s1t:'Temel ilke',s1s:'Her onaltılık basamak = tam 4 bit',
+        s1b:'16 = 2⁴ olduğundan, her onaltılık basamak tam olarak <span class="hl">4 bit</span>\'e karşılık gelir.\nSadece her basamağı karşılık gelen bitlerle değiştir — bölme gerekmez.',
+        s2t:'Dönüşüm tablosu',s2s:(h)=>`${h} sayısının her basamağı dönüştürülüyor`,
+        s3t:'Birleştirme',s3s:'4 bitlik gruplar birleştiriliyor',
+      },
+      hexdec:{
+        s1t:'Yöntem',s1s:'Taban 16 konumsal gösterim',
+        s1b:'Her konum <span class="hl">16</span>\'nın bir kuvvetidir.\nEn sağ = 16⁰, sonraki = 16¹, vb.\nHer basamağı konumsal değeriyle çarp ve topla.',
+        s2t:'Hesaplama tablosu',s2s:(h)=>`${h} sayısının her basamağı analiz ediliyor`,
+        s3t:'Son toplam',s3s:'Tüm katkılar toplanıyor',
+      },
+      bindec:{
+        s1t:'Yöntem',s1s:'Taban 2 konumsal gösterim',
+        s1b:'Her konum <span class="hl">2</span>\'nin bir kuvvetidir.\nEn sağ = 2⁰ = 1, sonraki = 2¹ = 2, sonra 2² = 4 …\nYalnızca <span class="hl">1</span> olan konumlar katkıda bulunur.',
+        s2t:'Bit analizi',s2s:(b)=>`${b} sağdan sola işleniyor`,
+        s3t:'Toplam',s3s:"Tüm 1-bitlerinin katkıları toplanıyor",
+      },
+      binhex:{
+        s1t:'Temel ilke',s1s:"Bitleri 4'er 4'er gruplandır",
+        s1b:'16 = 2⁴ olduğundan her <span class="hl">4 bit</span> = 1 onaltılık basamak.\n<span class="hl">Sağdan sola</span> dörderli grupla.\nEksik grup varsa başına sıfır ekle.',
+        s2t:'Gruplama',s2s:(b)=>`${b} sayısı 4 bitlik gruplara bölünüyor`,
+        s3t:'Grup dönüşümü',s3s:'Her 4 bit → 1 onaltılık basamak',
+        s4t:'Sonuç',s4s:'Onaltılık basamaklar birleştiriliyor',
+      },
+      octdec:{
+        s1t:'Yöntem',s1s:'Taban 8 konumsal gösterim',
+        s1b:'Her konum <span class="hl">8</span>\'in bir kuvvetidir.\nEn sağ = 8⁰ = 1, sonraki = 8¹ = 8, sonra 8² = 64 …\nHer basamağı konumsal değeriyle çarp ve topla.',
+        s2t:'Hesaplama tablosu',s2s:(o)=>`${o} sayısının her basamağı analiz ediliyor`,
+        s3t:'Son toplam',s3s:'Tüm katkılar toplanıyor',
+      },
     }
   }
 };
@@ -268,15 +360,25 @@ const examples={'dec-bin':['255','42','1024','7','100'],'dec-hex':['255','4096',
 const baseOf={'dec-bin':'dec','dec-hex':'dec','dec-oct':'dec','hex-bin':'hex','hex-dec':'hex','bin-dec':'bin','bin-hex':'bin','oct-dec':'oct'};
 
 function toggleTheme(){const h=document.documentElement,d=h.dataset.theme==='dark';h.dataset.theme=d?'light':'dark';document.getElementById('iconMoon').style.display=d?'none':'block';document.getElementById('iconSun').style.display=d?'block':'none';}
+
 function setLang(l){lang=l;document.documentElement.lang=l;document.querySelectorAll('.pill-btn').forEach(b=>b.classList.toggle('active',b.textContent===l.toUpperCase()));applyI18n();renderEx();document.getElementById('resWrap').classList.remove('show');}
+
 function applyI18n(){const t=I[lang];document.querySelectorAll('[data-i]').forEach(el=>{const k=el.dataset.i;if(t[k]!==undefined)el.innerHTML=t[k];});document.querySelectorAll('[data-ic]').forEach(el=>{const k=el.dataset.ic;if(t.cl[k])el.textContent=t.cl[k];});updateMeta();}
+
 function updateMeta(){const t=I[lang],b=baseOf[curConv];document.getElementById('inpLabel').textContent=t.il[b];document.getElementById('inpHint').textContent=t.ih[b];document.getElementById('inpHint').className='field-hint';}
+
 function renderEx(){const r=document.getElementById('exRow');r.innerHTML=examples[curConv].map(e=>`<span class="ex-chip" onclick="setEx('${e}')">${e}</span>`).join('');}
+
 function setEx(v){document.getElementById('inpVal').value=v;document.getElementById('inpVal').focus();clearE();}
+
 function selConv(el){document.querySelectorAll('.conv-tile').forEach(t=>t.classList.remove('active'));el.classList.add('active');curConv=el.dataset.conv;document.getElementById('inpVal').value='';document.getElementById('resWrap').classList.remove('show');updateMeta();clearE();renderEx();}
+
 function clearE(){const i=document.getElementById('inpVal');i.classList.remove('err-inp');const h=document.getElementById('inpHint');h.className='field-hint';h.textContent=I[lang].ih[baseOf[curConv]];}
+
 function showE(m){document.getElementById('inpVal').classList.add('err-inp');const h=document.getElementById('inpHint');h.className='field-hint err-hint';h.textContent=m;}
+
 function validate(v){const e=I[lang].er,b=baseOf[curConv];if(!v.trim()){showE(e.empty);return false;}if(b==='dec'&&!/^\d+$/.test(v)){showE(e.dec);return false;}if(b==='hex'&&!/^[0-9A-Fa-f]+$/.test(v)){showE(e.hex);return false;}if(b==='bin'&&!/^[01]+$/.test(v)){showE(e.bin);return false;}if(b==='oct'&&!/^[0-7]+$/.test(v)){showE(e.oct);return false;}return true;}
+
 function go(){
   const raw=document.getElementById('inpVal').value.trim().toUpperCase();
   if(!validate(raw))return;
@@ -294,24 +396,119 @@ function go(){
   const w=document.getElementById('resWrap');w.classList.remove('show');void w.offsetWidth;w.classList.add('show');
   w.scrollIntoView({behavior:'smooth',block:'start'});
 }
+
 function copyR(){navigator.clipboard.writeText(document.getElementById('resNum').textContent);const b=document.querySelector('.copy-btn');b.textContent=I[lang].copied;setTimeout(()=>b.textContent=I[lang].copy,1400);}
 
+// ─── HELPERS ───────────────────────────────────────────────
 function St(n,title,sub,body,d=0){return `<div class="step-item" style="animation-delay:${d}s"><div class="step-idx">${String(n).padStart(2,'0')}</div><div><div class="step-title">${title} <span class="step-sub dm">— ${sub}</span></div><div class="step-sub">${body}</div></div></div>${n<4?'<div class="step-divider"></div>':''}`;}
 function Tbl(heads,rows){return `<table class="dtable"><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>typeof c==='object'?`<td class="${c.c}">${c.v}</td>`:`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`;}
 function Fb(lines){return `<div class="fblock">${lines.join('<br>')}</div>`;}
 function Sum(from,bf,to,bt){return `<div class="sumline">${from}<sub style="font-size:.75em">(${bf})</sub>  →  <strong>${to}</strong><sub style="font-size:.75em">(${bt})</sub></div>`;}
 
-function gDecBin(n){const s=I[lang].s,d=s.decbin,th=s.th;const rows=[];let num=n;if(num===0)return St(1,'0 in binary','','<span class="hl">0</span>',0);while(num>0){const q=Math.floor(num/2),r=num%2;rows.push({num,q,r});num=q;}const bits=rows.map(r=>r.r).reverse().join('');const tbl=Tbl([th.div,'÷ 2',th.q,th.rem],rows.map((r,i)=>[{v:r.num,c:'tv'},{v:'÷ 2',c:'tm'},r.q,{v:r.r+(i===rows.length-1?' '+s.msb:''),c:'ta'}]));const s3body=`Remainders: <span class="ac">${rows.map(r=>r.r).join(' → ')}</span><br>Reversed: <span class="hl">${rows.map(r=>r.r).reverse().join(' ')}</span>`;const s3bodyTR=`Kalanlar: <span class="ac">${rows.map(r=>r.r).join(' → ')}</span><br>Tersten: <span class="hl">${rows.map(r=>r.r).reverse().join(' ')}</span>`;const s3b=lang==='tr'?s3bodyTR:s3body;const verif=rows.map((r,i)=>r.r===1?`<span class="fh">1</span> × 2<sup>${i}</sup> = <span class="fa">${Math.pow(2,i)}</span>`:null).filter(Boolean).reverse().join(' <span class="fm">+</span> ')+` <span class="fm">=</span> <span class="fr">${n}</span> ✓`;return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(n),tbl,.06),St(3,d.s3t,d.s3s,s3b+Sum(n,10,bits,2),.12),St(4,d.s4t,d.s4s,Fb([verif]),.18)].join('');}
-function gDecHex(n){const s=I[lang].s,d=s.dechex,th=s.th;const hd=['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];const rows=[];let num=n;if(num===0)return St(1,'0 in hex','','<span class="hl">0</span>',0);while(num>0){const q=Math.floor(num/16),r=num%16;rows.push({num,q,r,rh:hd[r]});num=q;}const hex=rows.map(r=>r.rh).reverse().join('');const refTbl=Tbl(['Dec','HEX'],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map(i=>[i,{v:hd[i],c:'ta'}]));const tbl=Tbl([th.div,'÷ 16',th.q,th.rem,th.hex],rows.map((r,i)=>[{v:r.num,c:'tv'},{v:'÷16',c:'tm'},r.q,r.r,{v:r.rh+(i===rows.length-1?' '+s.msd:''),c:'ta'}]));const s3en=`Remainders: <span class="ac">${rows.map(r=>r.rh).join(' → ')}</span><br>Reversed: <span class="hl">${rows.map(r=>r.rh).reverse().join(' ')}</span>`;const s3tr=`Kalanlar: <span class="ac">${rows.map(r=>r.rh).join(' → ')}</span><br>Tersten: <span class="hl">${rows.map(r=>r.rh).reverse().join(' ')}</span>`;const verif=rows.map((r,i)=>`<span class="fh">${r.rh}</span>(${r.r})×16<sup>${i}</sup>=<span class="fa">${r.r*Math.pow(16,i)}</span>`).reverse().join(' <span class="fm">+</span> ')+` <span class="fm">=</span> <span class="fr">${n}</span> ✓`;return [St(1,d.s1t,d.s1s,refTbl,0),St(2,d.s2t,d.s2s(n),tbl,.06),St(3,d.s3t,d.s3s,(lang==='tr'?s3tr:s3en)+Sum(n,10,hex,16),.12),St(4,d.s4t,d.s4s,Fb([verif]),.18)].join('');}
-function gDecOct(n){const s=I[lang].s,d=s.decoct,th=s.th;const rows=[];let num=n;if(num===0)return St(1,'0 in octal','','<span class="hl">0</span>',0);while(num>0){const q=Math.floor(num/8),r=num%8;rows.push({num,q,r});num=q;}const oct=rows.map(r=>r.r).reverse().join('');const tbl=Tbl([th.div,'÷ 8',th.q,th.rem],rows.map((r,i)=>[{v:r.num,c:'tv'},{v:'÷8',c:'tm'},r.q,{v:r.r+(i===rows.length-1?' '+s.msd:''),c:'ta'}]));return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(n),tbl,.06),St(3,d.s3t,d.s3s,Sum(n,10,oct,8),.12)].join('');}
-function gHexBin(hex){const s=I[lang].s,d=s.hexbin,th=s.th;const map={'0':'0000','1':'0001','2':'0010','3':'0011','4':'0100','5':'0101','6':'0110','7':'0111','8':'1000','9':'1001','A':'1010','B':'1011','C':'1100','D':'1101','E':'1110','F':'1111'};const digits=hex.toUpperCase().split('');const raw=digits.map(dd=>map[dd]).join('');const result=raw.replace(/^0+(?=.)/,'');const tbl=Tbl([th.dig,'→',th.bits],digits.map(dd=>[{v:dd,c:'tv'},{v:'→',c:'tm'},{v:map[dd],c:'ta'}]));const s3en=`Groups: <span class="hl">${digits.map(dd=>`[${map[dd]}]`).join(' ')}</span><br>Concatenated: <span class="ac">${raw}</span><br>Without leading zeros: <span class="hl">${result}</span>`;const s3tr=`Gruplar: <span class="hl">${digits.map(dd=>`[${map[dd]}]`).join(' ')}</span><br>Birleştirilmiş: <span class="ac">${raw}</span><br>Başındaki sıfırlar çıkarılmış: <span class="hl">${result}</span>`;return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(hex),tbl,.06),St(3,d.s3t,d.s3s,(lang==='tr'?s3tr:s3en)+Sum(hex,16,result,2),.12)].join('');}
-function gHexDec(hex){const s=I[lang].s,d=s.hexdec,th=s.th;const hv={'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'A':10,'B':11,'C':12,'D':13,'E':14,'F':15};const digits=hex.toUpperCase().split('').reverse();let sum=0;const tblR=digits.map((dd,i)=>{const v=hv[dd],p=Math.pow(16,i),c=v*p;sum+=c;return[{v:i,c:'tm'},{v:dd,c:'tv'},v,`${v}×16<sup>${i}</sup>`,{v:c,c:'ta'}];});const tbl=Tbl([th.pos,th.dig,th.dec,th.pow,th.con],tblR.reverse());const formula=digits.map((dd,i)=>`<span class="fh">${dd}</span>(${hv[dd]})×16<sup>${i}</sup>=<span class="fa">${hv[dd]*Math.pow(16,i)}</span>`).reverse().join(' <span class="fm">+</span> ')+` <span class="fm">=</span> <span class="fr">${sum}</span>`;return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(hex),tbl,.06),St(3,d.s3t,d.s3s,Fb([formula])+Sum(hex,16,sum,10),.12)].join('');}
-function gBinDec(bin){const s=I[lang].s,d=s.bindec,th=s.th;const digits=bin.split('').reverse();let sum=0;const tblR=digits.map((dd,i)=>{const p=Math.pow(2,i),c=parseInt(dd)*p;sum+=c;return[{v:i,c:'tm'},{v:dd,c:dd==='1'?'tv':'tm'},`2<sup>${i}</sup>=${p}`,{v:`${dd}×${p}`,c:'tm'},{v:c,c:dd==='1'?'ta':'tm'}];});const tbl=Tbl([th.pos,th.dig,th.pow,th.con,th.dec],tblR.reverse());const formula=digits.map((dd,i)=>`<span class="${dd==='1'?'fh':'fm'}">${dd}</span>×2<sup>${i}</sup>=<span class="${dd==='1'?'fa':'fm'}">${parseInt(dd)*Math.pow(2,i)}</span>`).reverse().join(' <span class="fm">+</span> ')+` <span class="fm">=</span> <span class="fr">${sum}</span>`;return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(bin),tbl,.06),St(3,d.s3t,d.s3s,Fb([formula])+Sum(bin,2,sum,10),.12)].join('');}
-function gBinHex(bin){const s=I[lang].s,d=s.binhex,th=s.th;const padded=bin.padStart(Math.ceil(bin.length/4)*4,'0');const groups=padded.match(/.{4}/g)||[];const hmap={'0000':'0','0001':'1','0010':'2','0011':'3','0100':'4','0101':'5','0110':'6','0111':'7','1000':'8','1001':'9','1010':'A','1011':'B','1100':'C','1101':'D','1110':'E','1111':'F'};const result=groups.map(g=>hmap[g]).join('');const padNote=bin.length%4!==0?(lang==='tr'?`Tamamlanmış: <span class="hl">${padded}</span>  →  `:`Padded: <span class="hl">${padded}</span>  →  `):'';const s2body=padNote+(lang==='tr'?`Gruplar: <span class="hl">${groups.map(g=>`[${g}]`).join(' ')}</span>`:`Groups: <span class="hl">${groups.map(g=>`[${g}]`).join(' ')}</span>`);const tbl=Tbl([th.grp,th.bits,th.hexd,th.dec],groups.map((g,i)=>[{v:`#${i+1}`,c:'tm'},{v:g,c:'tv'},{v:hmap[g],c:'ta'},parseInt(g,2)]));return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(bin),s2body,.06),St(3,d.s3t,d.s3s,tbl,.12),St(4,d.s4t,d.s4s,Sum(bin,2,result,16),.18)].join('');}
-function gOctDec(oct){const s=I[lang].s,d=s.octdec,th=s.th;const digits=oct.split('').reverse();let sum=0;const tblR=digits.map((dd,i)=>{const p=Math.pow(8,i),c=parseInt(dd)*p;sum+=c;return[{v:i,c:'tm'},{v:dd,c:'tv'},`8<sup>${i}</sup>=${p}`,{v:`${dd}×${p}`,c:'tm'},{v:c,c:'ta'}];});const tbl=Tbl([th.pos,th.dig,th.pow,th.con,th.dec],tblR.reverse());const formula=digits.map((dd,i)=>`<span class="fh">${dd}</span>×8<sup>${i}</sup>=<span class="fa">${parseInt(dd)*Math.pow(8,i)}</span>`).reverse().join(' <span class="fm">+</span> ')+` <span class="fm">=</span> <span class="fr">${sum}</span>`;return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(oct),tbl,.06),St(3,d.s3t,d.s3s,Fb([formula])+Sum(oct,8,sum,10),.12)].join('');}
+// ─── DEC → BIN ──────────────────────────────────────────────
+function gDecBin(n){
+  const s=I[lang].s,d=s.decbin,th=s.th;
+  const rows=[];let num=n;
+  if(num===0)return St(1,'0 in binary','','<span class="hl">0</span>',0);
+  while(num>0){const q=Math.floor(num/2),r=num%2;rows.push({num,q,r});num=q;}
+  const bits=rows.map(r=>r.r).reverse().join('');
+  const tbl=Tbl([th.div,'÷ 2',th.q,th.rem],rows.map((r,i)=>[{v:r.num,c:'tv'},{v:'÷ 2',c:'tm'},r.q,{v:r.r+(i===rows.length-1?' '+s.msb:''),c:'ta'}]));
+  const s3body=`Remainders: <span class="ac">${rows.map(r=>r.r).join(' → ')}</span><br>Reversed: <span class="hl">${rows.map(r=>r.r).reverse().join(' ')}</span>`;
+  const s3bodyTR=`Kalanlar: <span class="ac">${rows.map(r=>r.r).join(' → ')}</span><br>Tersten: <span class="hl">${rows.map(r=>r.r).reverse().join(' ')}</span>`;
+  const s3b=lang==='tr'?s3bodyTR:s3body;
+  const verif=rows.map((r,i)=>r.r===1?`<span class="fh">1</span> × 2<sup>${i}</sup> = <span class="fa">${Math.pow(2,i)}</span>`:null).filter(Boolean).reverse().join(' <span class="fm">+</span> ')+` <span class="fm">=</span> <span class="fr">${n}</span> ✓`;
+  return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(n),tbl,.06),St(3,d.s3t,d.s3s,s3b+Sum(n,10,bits,2),.12),St(4,d.s4t,d.s4s,Fb([verif]),.18)].join('');
+}
 
+// ─── DEC → HEX ──────────────────────────────────────────────
+function gDecHex(n){
+  const s=I[lang].s,d=s.dechex,th=s.th;
+  const hd=['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
+  const rows=[];let num=n;
+  if(num===0)return St(1,'0 in hex','','<span class="hl">0</span>',0);
+  while(num>0){const q=Math.floor(num/16),r=num%16;rows.push({num,q,r,rh:hd[r]});num=q;}
+  const hex=rows.map(r=>r.rh).reverse().join('');
+  const refTbl=Tbl(['Dec','HEX'],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map(i=>[i,{v:hd[i],c:'ta'}]));
+  const tbl=Tbl([th.div,'÷ 16',th.q,th.rem,th.hex],rows.map((r,i)=>[{v:r.num,c:'tv'},{v:'÷16',c:'tm'},r.q,r.r,{v:r.rh+(i===rows.length-1?' '+s.msd:''),c:'ta'}]));
+  const s3en=`Remainders: <span class="ac">${rows.map(r=>r.rh).join(' → ')}</span><br>Reversed: <span class="hl">${rows.map(r=>r.rh).reverse().join(' ')}</span>`;
+  const s3tr=`Kalanlar: <span class="ac">${rows.map(r=>r.rh).join(' → ')}</span><br>Tersten: <span class="hl">${rows.map(r=>r.rh).reverse().join(' ')}</span>`;
+  const verif=rows.map((r,i)=>`<span class="fh">${r.rh}</span>(${r.r})×16<sup>${i}</sup>=<span class="fa">${r.r*Math.pow(16,i)}</span>`).reverse().join(' <span class="fm">+</span> ')+` <span class="fm">=</span> <span class="fr">${n}</span> ✓`;
+  return [St(1,d.s1t,d.s1s,refTbl,0),St(2,d.s2t,d.s2s(n),tbl,.06),St(3,d.s3t,d.s3s,(lang==='tr'?s3tr:s3en)+Sum(n,10,hex,16),.12),St(4,d.s4t,d.s4s,Fb([verif]),.18)].join('');
+}
+
+// ─── DEC → OCT ──────────────────────────────────────────────
+function gDecOct(n){
+  const s=I[lang].s,d=s.decoct,th=s.th;
+  const rows=[];let num=n;
+  if(num===0)return St(1,'0 in octal','','<span class="hl">0</span>',0);
+  while(num>0){const q=Math.floor(num/8),r=num%8;rows.push({num,q,r});num=q;}
+  const oct=rows.map(r=>r.r).reverse().join('');
+  const tbl=Tbl([th.div,'÷ 8',th.q,th.rem],rows.map((r,i)=>[{v:r.num,c:'tv'},{v:'÷8',c:'tm'},r.q,{v:r.r+(i===rows.length-1?' '+s.msd:''),c:'ta'}]));
+  return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(n),tbl,.06),St(3,d.s3t,d.s3s,Sum(n,10,oct,8),.12)].join('');
+}
+
+// ─── HEX → BIN ──────────────────────────────────────────────
+function gHexBin(hex){
+  const s=I[lang].s,d=s.hexbin,th=s.th;
+  const map={'0':'0000','1':'0001','2':'0010','3':'0011','4':'0100','5':'0101','6':'0110','7':'0111','8':'1000','9':'1001','A':'1010','B':'1011','C':'1100','D':'1101','E':'1110','F':'1111'};
+  const digits=hex.toUpperCase().split('');
+  const raw=digits.map(dd=>map[dd]).join('');
+  const result=raw.replace(/^0+(?=.)/,'');
+  const tbl=Tbl([th.dig,'→',th.bits],digits.map(dd=>[{v:dd,c:'tv'},{v:'→',c:'tm'},{v:map[dd],c:'ta'}]));
+  const s3en=`Groups: <span class="hl">${digits.map(dd=>`[${map[dd]}]`).join(' ')}</span><br>Concatenated: <span class="ac">${raw}</span><br>Without leading zeros: <span class="hl">${result}</span>`;
+  const s3tr=`Gruplar: <span class="hl">${digits.map(dd=>`[${map[dd]}]`).join(' ')}</span><br>Birleştirilmiş: <span class="ac">${raw}</span><br>Başındaki sıfırlar çıkarılmış: <span class="hl">${result}</span>`;
+  return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(hex),tbl,.06),St(3,d.s3t,d.s3s,(lang==='tr'?s3tr:s3en)+Sum(hex,16,result,2),.12)].join('');
+}
+
+// ─── HEX → DEC ──────────────────────────────────────────────
+function gHexDec(hex){
+  const s=I[lang].s,d=s.hexdec,th=s.th;
+  const hv={'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'A':10,'B':11,'C':12,'D':13,'E':14,'F':15};
+  const digits=hex.toUpperCase().split('').reverse();
+  let sum=0;
+  const tblR=digits.map((dd,i)=>{const v=hv[dd],p=Math.pow(16,i),c=v*p;sum+=c;return[{v:i,c:'tm'},{v:dd,c:'tv'},v,`${v}×16<sup>${i}</sup>`,{v:c,c:'ta'}];});
+  const tbl=Tbl([th.pos,th.dig,th.dec,th.pow,th.con],tblR.reverse());
+  const formula=digits.map((dd,i)=>`<span class="fh">${dd}</span>(${hv[dd]})×16<sup>${i}</sup>=<span class="fa">${hv[dd]*Math.pow(16,i)}</span>`).reverse().join(' <span class="fm">+</span> ')+` <span class="fm">=</span> <span class="fr">${sum}</span>`;
+  return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(hex),tbl,.06),St(3,d.s3t,d.s3s,Fb([formula])+Sum(hex,16,sum,10),.12)].join('');
+}
+
+// ─── BIN → DEC ──────────────────────────────────────────────
+function gBinDec(bin){
+  const s=I[lang].s,d=s.bindec,th=s.th;
+  const digits=bin.split('').reverse();
+  let sum=0;
+  const tblR=digits.map((dd,i)=>{const p=Math.pow(2,i),c=parseInt(dd)*p;sum+=c;return[{v:i,c:'tm'},{v:dd,c:dd==='1'?'tv':'tm'},`2<sup>${i}</sup>=${p}`,{v:`${dd}×${p}`,c:'tm'},{v:c,c:dd==='1'?'ta':'tm'}];});
+  const tbl=Tbl([th.pos,th.dig,th.pow,th.con,th.dec],tblR.reverse());
+  const formula=digits.map((dd,i)=>`<span class="${dd==='1'?'fh':'fm'}">${dd}</span>×2<sup>${i}</sup>=<span class="${dd==='1'?'fa':'fm'}">${parseInt(dd)*Math.pow(2,i)}</span>`).reverse().join(' <span class="fm">+</span> ')+` <span class="fm">=</span> <span class="fr">${sum}</span>`;
+  return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(bin),tbl,.06),St(3,d.s3t,d.s3s,Fb([formula])+Sum(bin,2,sum,10),.12)].join('');
+}
+
+// ─── BIN → HEX ──────────────────────────────────────────────
+function gBinHex(bin){
+  const s=I[lang].s,d=s.binhex,th=s.th;
+  const padded=bin.padStart(Math.ceil(bin.length/4)*4,'0');
+  const groups=padded.match(/.{4}/g)||[];
+  const hmap={'0000':'0','0001':'1','0010':'2','0011':'3','0100':'4','0101':'5','0110':'6','0111':'7','1000':'8','1001':'9','1010':'A','1011':'B','1100':'C','1101':'D','1110':'E','1111':'F'};
+  const result=groups.map(g=>hmap[g]).join('');
+  const padNote=bin.length%4!==0?(lang==='tr'?`Tamamlanmış: <span class="hl">${padded}</span>  →  `:`Padded: <span class="hl">${padded}</span>  →  `):'';
+  const s2body=padNote+(lang==='tr'?`Gruplar: <span class="hl">${groups.map(g=>`[${g}]`).join(' ')}</span>`:`Groups: <span class="hl">${groups.map(g=>`[${g}]`).join(' ')}</span>`);
+  const tbl=Tbl([th.grp,th.bits,th.hexd,th.dec],groups.map((g,i)=>[{v:`#${i+1}`,c:'tm'},{v:g,c:'tv'},{v:hmap[g],c:'ta'},parseInt(g,2)]));
+  return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(bin),s2body,.06),St(3,d.s3t,d.s3s,tbl,.12),St(4,d.s4t,d.s4s,Sum(bin,2,result,16),.18)].join('');
+}
+
+// ─── OCT → DEC ──────────────────────────────────────────────
+function gOctDec(oct){
+  const s=I[lang].s,d=s.octdec,th=s.th;
+  const digits=oct.split('').reverse();
+  let sum=0;
+  const tblR=digits.map((dd,i)=>{const p=Math.pow(8,i),c=parseInt(dd)*p;sum+=c;return[{v:i,c:'tm'},{v:dd,c:'tv'},`8<sup>${i}</sup>=${p}`,{v:`${dd}×${p}`,c:'tm'},{v:c,c:'ta'}];});
+  const tbl=Tbl([th.pos,th.dig,th.pow,th.con,th.dec],tblR.reverse());
+  const formula=digits.map((dd,i)=>`<span class="fh">${dd}</span>×8<sup>${i}</sup>=<span class="fa">${parseInt(dd)*Math.pow(8,i)}</span>`).reverse().join(' <span class="fm">+</span> ')+` <span class="fm">=</span> <span class="fr">${sum}</span>`;
+  return [St(1,d.s1t,d.s1s,d.s1b.replace(/\n/g,'<br>'),0),St(2,d.s2t,d.s2s(oct),tbl,.06),St(3,d.s3t,d.s3s,Fb([formula])+Sum(oct,8,sum,10),.12)].join('');
+}
+
+// ─── INIT ────────────────────────────────────────────────────
 applyI18n();renderEx();
 </script>
-
 </body>
 </html>
