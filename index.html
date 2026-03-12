@@ -21,7 +21,7 @@ const manifestData = {
   name: "BaseConv — Number Base Converter",
   short_name: "BaseConv",
   description: "Step-by-step number base converter",
-  start_url: ".",
+  start_url: "./", // Cambiado de "." a "./"
   display: "standalone",
   background_color: "#0e0f11",
   theme_color: "#0e0f11",
@@ -220,8 +220,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--ff-sans);font-size
     <div class="section-label" data-i="sec-input">Input value</div>
     <div class="input-row">
       <div class="field">
-        <!-- Cambiamos id="inpLabel" por for="inpVal" -->
-        <label class="field-label" for="inpVal">Decimal number</label>
+        <!-- Se añadió for="inpVal" -->
+        <label class="field-label" id="inpLabel" for="inpVal">Decimal number</label>
         <input class="field-input" id="inpVal" type="text" placeholder="e.g. 255" autocomplete="off" oninput="clearE()" onkeydown="if(event.key==='Enter')go()">
         <span class="field-hint" id="inpHint">Digits 0–9 only</span>
       </div>
