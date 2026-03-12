@@ -220,7 +220,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--ff-sans);font-size
     <div class="section-label" data-i="sec-input">Input value</div>
     <div class="input-row">
       <div class="field">
-        <label class="field-label" id="inpLabel">Decimal number</label>
+        <!-- Cambiamos id="inpLabel" por for="inpVal" -->
+        <label class="field-label" for="inpVal">Decimal number</label>
         <input class="field-input" id="inpVal" type="text" placeholder="e.g. 255" autocomplete="off" oninput="clearE()" onkeydown="if(event.key==='Enter')go()">
         <span class="field-hint" id="inpHint">Digits 0–9 only</span>
       </div>
